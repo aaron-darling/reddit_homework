@@ -6,7 +6,6 @@ namespace RedTrack.Services.Moniters
     {
         bool IsMonitoring { get; }
         DateTime LastUpdated { get; set; }
-        Post MostDownVotes { get; set; }
         string MostPostsAuthor { get; set; }
         int MostPostsNumber { get; set; }
         Post MostUpVotes { get; set; }

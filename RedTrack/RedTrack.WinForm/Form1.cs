@@ -10,7 +10,7 @@ namespace reTrack.WinForm
     public partial class frmMain : Form
     {
         PostAnalyticsMonitor _monitor;
-        
+
         string[] subredditNames = ConfigurationManager.AppSettings["Subreddits"].Split(',');
 
         public frmMain()
@@ -27,16 +27,15 @@ namespace reTrack.WinForm
         {
             if (_monitor is not null && _monitor.IsMonitoring)
             {
-                
-                lblDownVotesPostName.Text = _monitor.MostDownVotes is null ? "" : _monitor.MostDownVotes.Title;
-                lblDownVotesNum.Text = _monitor.MostDownVotes is null ? "" : _monitor.MostDownVotes.Downs.ToString();
+
+
                 lblUpVotesPostName.Text = _monitor.MostUpVotes is null ? "" : _monitor.MostUpVotes.Title;
                 lblUpVotesNum.Text = _monitor.MostUpVotes is null ? "" : _monitor.MostUpVotes.Ups.ToString();
                 lblLastUpdate.Text = _monitor.LastUpdated.ToString();
                 lblMostPostsAuthor.Text = _monitor.MostPostsAuthor;
                 lblMostPostsNum.Text = _monitor.MostPostsNumber.ToString();
                 lblLastUpdate.Text = _monitor.LastUpdated.ToString();
-              
+
             }
 
         }
@@ -47,18 +46,19 @@ namespace reTrack.WinForm
             {
                 Cursor.Current = Cursors.WaitCursor;
                 btnRun.Enabled = false;
+                lblLastUpdate.Text = "Loading...";
                 if (_monitor is null)
                 {
                     string appId = ConfigurationManager.AppSettings["AppId"];
                     string refreshToken = ConfigurationManager.AppSettings["RefreshToken"];
                     RateLimiter rateLimiter = new RateLimiter();
                     ApiRequestHandler handler = new ApiRequestHandler(rateLimiter, appId, refreshToken);
-                    
+
                     RedditApiService redditService = new RedditApiService(handler);
-                    
+
                     _monitor = new PostAnalyticsMonitor(redditService, subredditNames[0]);
 
-                  
+
 
                 }
                 if (!_monitor.IsMonitoring)

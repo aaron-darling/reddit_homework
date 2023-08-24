@@ -14,7 +14,6 @@ namespace RedTrack.Services.Moniters
         public bool IsMonitoring { get { return _isMonitoring; } }
         public DateTime LastUpdated { get; set; }
         public Post MostUpVotes { get; set; }
-        public Post MostDownVotes { get; set; }
         public string MostPostsAuthor { get; set; }
         public int MostPostsNumber { get; set; }
 
@@ -22,6 +21,7 @@ namespace RedTrack.Services.Moniters
         {
             _apiService = apiService;
             _subreddit = subreddit;
+
         }
 
         public void StartMonitoring(string after = "", string before = "", int limit = 100, int count = 0)
@@ -66,7 +66,7 @@ namespace RedTrack.Services.Moniters
                 MostPostsNumber = mostPosts.Count;
 
                 MostUpVotes = posts.MaxBy(x => x.Ups);
-                MostDownVotes = posts.MaxBy(x => x.Downs);
+
                 LastUpdated = DateTime.Now;
 
             }
