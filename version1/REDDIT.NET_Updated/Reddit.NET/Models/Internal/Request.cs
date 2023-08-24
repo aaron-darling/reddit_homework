@@ -478,7 +478,8 @@ namespace Reddit.Models.Internal
                 keyReq.AddParameter("grant_type", "refresh_token");
                 keyReq.AddParameter("refresh_token", RefreshToken);
             }
-            else if (!string.IsNullOrEmpty(DeviceId))
+            else
+            if (!string.IsNullOrEmpty(DeviceId))
             {
                 keyReq.AddParameter("grant_type", "https://oauth.reddit.com/grants/installed_client");
                 keyReq.AddParameter("device_id", DeviceId);
